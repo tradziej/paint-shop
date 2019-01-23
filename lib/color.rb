@@ -1,5 +1,7 @@
 module PaintShop
   class Color
+    include Comparable
+
     attr_reader :index, :finish
 
     def initialize(index:, finish: :G)
@@ -12,6 +14,14 @@ module PaintShop
       raise 'Finish must be Symbol' unless finish.is_a?(Symbol)
       raise 'Finish can be :G or :M only' unless %i(G M).include?(finish)
       @finish = finish
+    end
+
+    def <=>(other)
+      unless other.is_a?(::PaintShop::Color)
+        raise TypeError, "Can't compare #{other.class} with PaintShop::Color"
+      end
+
+      [index, finish] <=> [other.index, other.finish]
     end
   end
 end
