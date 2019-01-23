@@ -3,8 +3,10 @@ require_relative './color.rb'
 
 module PaintShop
   class Customer
+    include Comparable
+
     attr_reader :preferences
-    
+
     def initialize(preferences: [])
       raise 'Color preferences can\'t be nil' if preferences.nil?
       raise 'Color preferences aren\'t an array' unless preferences.is_a?(Array)
@@ -23,6 +25,14 @@ module PaintShop
       Customer.new(preferences: preferences)
      rescue StandardError => e
       raise ::PaintShop::Errors::ParseError, "#{e.message} in #{preference_string.inspect}"
+    end
+
+    def <=>(other)
+      unless other.is_a?(::PaintShop::Customer)
+        raise TypeError, "Can't compare #{other.class} with PaintShop::Customer"
+      end
+
+      preferences.size <=> other.preferences.size
     end
   end
 end
