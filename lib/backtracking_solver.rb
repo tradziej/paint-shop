@@ -25,7 +25,7 @@ module PaintShop
       %i(G M).each do |finish|
         solution[position] = finish
         # check if current solution satisfy all customers
-        if satisfied_with?(solution)
+        if satisfied_with?(solution, position)
           if position >= solution.size - 1 || get_solution(solution, position + 1)
             return solution
           end
@@ -36,18 +36,12 @@ module PaintShop
       return nil
     end
 
-    def satisfied_with?(solution)
-      # solutions is working for all customers
-      return true if @customers.all? do |customer|
-        customer.preferences.any? do |pref|
-          solution[pref.index - 1] ? pref.finish == solution[pref.index - 1] : true
-        end
-      end
-
-      # there is a customer without solution
+    def satisfied_with?(solution, position)
+      # return false if there is a customer whom all preferences are not satisfied
+      # by current given partially solution
       return false if @customers.any? do |customer|
         customer.preferences.all? do |pref|
-          pref.finish != solution[pref.index - 1]
+          pref.index <= position + 1 && pref.finish != solution[pref.index - 1]
         end
       end
 
