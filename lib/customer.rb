@@ -27,6 +27,11 @@ module PaintShop
       raise ::PaintShop::Errors::ParseError, "#{e.message} in #{preference_string.inspect}"
     end
 
+    # checks if customer is satisfied by given solution, e.g. [:G, :G, :M]
+    def satisfied_with?(solution = [])
+      preferences.any? { |pref| pref.finish == solution[pref.index - 1] }
+    end
+
     def <=>(other)
       unless other.is_a?(::PaintShop::Customer)
         raise TypeError, "Can't compare #{other.class} with PaintShop::Customer"

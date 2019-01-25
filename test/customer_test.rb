@@ -57,4 +57,11 @@ class CustomerTest < Minitest::Test
     ]
     assert_equal(expected, customers.sort)
   end
+
+  def test_satisfied_with_solution
+    customer = PaintShop::Customer.parse('1 M 3 G 5 G')
+
+    assert(customer.satisfied_with?([:G, :G, :G, :G, :M]))
+    refute(customer.satisfied_with?([:G, :M, :M, :M, :M]))
+  end
 end
