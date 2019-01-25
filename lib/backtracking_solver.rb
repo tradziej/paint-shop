@@ -1,3 +1,5 @@
+require 'general_bactracking_solver'
+
 module PaintShop
   class BacktrackingSolver
     def initialize(paints_count:, customers: [])
@@ -12,29 +14,17 @@ module PaintShop
     end
 
     def solve
-      # Prepare starting array of possible solution, e.g. [nil, nil, ..., nil]
-      solution = Array.new(@paints_count)
-      solution = get_solution(solution, 0)
+      solution =
+        PaintShop::GeneralBacktrackingSolver.new(
+          values: %i(G M),
+          safe_up_to: method(:satisfied_with?),
+          size: @paints_count
+        ).solve
 
-      solution_string(solution)
+        solution_string(solution)
     end
 
    private
-
-    def get_solution(solution, position)
-      %i(G M).each do |finish|
-        solution[position] = finish
-        # check if current solution satisfy all customers
-        if satisfied_with?(solution, position)
-          if position >= solution.size - 1 || get_solution(solution, position + 1)
-            return solution
-          end
-        end
-      end
-
-      # returns nil if no solution
-      return nil
-    end
 
     def satisfied_with?(solution, position)
       # return false if there is a customer whom all preferences are not satisfied
