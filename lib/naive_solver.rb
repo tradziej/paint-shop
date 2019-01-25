@@ -1,10 +1,10 @@
 module PaintShop
   class NaiveSolver
-    def initialize(colors_number:, customers: [])
-      raise 'Colors number can\'t be nil' if colors_number.nil?
-      raise 'Colors number must be Integer' unless colors_number.is_a?(Integer)
-      raise 'Colors number must be greater than 1' if colors_number < 1
-      @colors_number = colors_number
+    def initialize(paints_count:, customers: [])
+      raise 'Paints number can\'t be nil' if paints_count.nil?
+      raise 'Paints number must be Integer' unless paints_count.is_a?(Integer)
+      raise 'Paints number must be greater than 1' if paints_count < 1
+      @paints_count = paints_count
 
       raise 'Customers array can\'t be nil' if customers.nil?
       raise 'Customers isn\'t an array' unless customers.is_a?(Array)
@@ -14,7 +14,7 @@ module PaintShop
     def solve
       solutions = []
 
-      # check every possible combination for given colors
+      # check every possible combination for given paints
       # and gather only satisfying all customers
       all_combinations.each do |combination|
         solutions << combination if sorted_customers.all? do |customer|
@@ -29,7 +29,7 @@ module PaintShop
    private
 
     def all_combinations
-      @all_combinations ||= %i(G M).repeated_permutation(@colors_number).to_a
+      @all_combinations ||= %i(G M).repeated_permutation(@paints_count).to_a
     end
 
     def sorted_customers

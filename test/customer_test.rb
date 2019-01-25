@@ -14,7 +14,7 @@ class CustomerTest < Minitest::Test
     refute_empty(customer.preferences)
   end
 
-  def test_color_eqaulity
+  def test_paint_eqaulity
     customer = PaintShop::Customer.parse('1 M')
     same_customer = PaintShop::Customer.parse('1 M')
 
@@ -26,34 +26,34 @@ class CustomerTest < Minitest::Test
     refute(customer > same_customer)
   end
 
-  def test_color_unequality
-    two_color_pref_customer = PaintShop::Customer.parse('1 M 2 G')
-    one_color_pref_customer = PaintShop::Customer.parse('1 M')
+  def test_paint_unequality
+    two_paint_pref_customer = PaintShop::Customer.parse('1 M 2 G')
+    one_paint_pref_customer = PaintShop::Customer.parse('1 M')
 
-    refute(two_color_pref_customer == one_color_pref_customer)
-    assert(two_color_pref_customer >= one_color_pref_customer)
-    refute(two_color_pref_customer <= one_color_pref_customer)
-    assert(two_color_pref_customer > one_color_pref_customer)
-    refute(two_color_pref_customer < one_color_pref_customer)
+    refute(two_paint_pref_customer == one_paint_pref_customer)
+    assert(two_paint_pref_customer >= one_paint_pref_customer)
+    refute(two_paint_pref_customer <= one_paint_pref_customer)
+    assert(two_paint_pref_customer > one_paint_pref_customer)
+    refute(two_paint_pref_customer < one_paint_pref_customer)
   end
 
-  def test_color_sorting
-    two_color_pref_customer = PaintShop::Customer.parse('1 M 2 G')
-    one_color_pref_customer = PaintShop::Customer.parse('1 M')
-    other_one_color_pref_customer = PaintShop::Customer.parse('1 M')
-    three_color_pref_customer = PaintShop::Customer.parse('1 M 3 G 5 G')
+  def test_paint_sorting
+    two_paint_pref_customer = PaintShop::Customer.parse('1 M 2 G')
+    one_paint_pref_customer = PaintShop::Customer.parse('1 M')
+    other_one_paint_pref_customer = PaintShop::Customer.parse('1 M')
+    three_paint_pref_customer = PaintShop::Customer.parse('1 M 3 G 5 G')
 
     customers = [
-      two_color_pref_customer,
-      one_color_pref_customer,
-      three_color_pref_customer,
-      other_one_color_pref_customer
+      two_paint_pref_customer,
+      one_paint_pref_customer,
+      three_paint_pref_customer,
+      other_one_paint_pref_customer
     ]
     expected = [
-      one_color_pref_customer,
-      other_one_color_pref_customer,
-      two_color_pref_customer,
-      three_color_pref_customer
+      one_paint_pref_customer,
+      other_one_paint_pref_customer,
+      two_paint_pref_customer,
+      three_paint_pref_customer
     ]
     assert_equal(expected, customers.sort)
   end

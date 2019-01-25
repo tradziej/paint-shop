@@ -1,10 +1,10 @@
 module PaintShop
   class BacktrackingSolver
-    def initialize(colors_number:, customers: [])
-      raise 'Colors number can\'t be nil' if colors_number.nil?
-      raise 'Colors number must be Integer' unless colors_number.is_a?(Integer)
-      raise 'Colors number must be greater than 1' if colors_number < 1
-      @colors_number = colors_number
+    def initialize(paints_count:, customers: [])
+      raise 'Paints number can\'t be nil' if paints_count.nil?
+      raise 'Paints number must be Integer' unless paints_count.is_a?(Integer)
+      raise 'Paints number must be greater than 1' if paints_count < 1
+      @paints_count = paints_count
 
       raise 'Customers array can\'t be nil' if customers.nil?
       raise 'Customers isn\'t an array' unless customers.is_a?(Array)
@@ -13,7 +13,7 @@ module PaintShop
 
     def solve
       # Prepare starting array of possible solution, e.g. [nil, nil, ..., nil]
-      solution = Array.new(@colors_number)
+      solution = Array.new(@paints_count)
       solution = get_solution(solution, 0)
 
       solution_string(solution)
@@ -41,7 +41,7 @@ module PaintShop
       # by current given partially solution
       return false if @customers.any? do |customer|
         customer.preferences.all? do |pref|
-          pref.index <= position + 1 && pref.finish != solution[pref.index - 1]
+          pref.number <= position + 1 && pref.finish != solution[pref.number - 1]
         end
       end
 

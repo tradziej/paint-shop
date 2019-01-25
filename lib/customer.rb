@@ -1,5 +1,5 @@
-require_relative './errors.rb'
-require_relative './color.rb'
+require_relative 'errors'
+require_relative 'paint'
 
 module PaintShop
   class Customer
@@ -8,8 +8,8 @@ module PaintShop
     attr_reader :preferences
 
     def initialize(preferences: [])
-      raise 'Color preferences can\'t be nil' if preferences.nil?
-      raise 'Color preferences aren\'t an array' unless preferences.is_a?(Array)
+      raise 'Paint preferences can\'t be nil' if preferences.nil?
+      raise 'Paint preferences aren\'t an array' unless preferences.is_a?(Array)
       @preferences = preferences
     end
 
@@ -19,7 +19,7 @@ module PaintShop
 
       parts = preference_string.split(' ')
       parts.each_slice(2) do |i, f|
-        preferences << ::PaintShop::Color.new(index: i.to_i, finish: f.to_sym)
+        preferences << ::PaintShop::Paint.new(number: i.to_i, finish: f.to_sym)
       end
 
       Customer.new(preferences: preferences)
@@ -29,7 +29,7 @@ module PaintShop
 
     # checks if customer is satisfied by given solution, e.g. [:G, :G, :M]
     def satisfied_with?(solution = [])
-      preferences.any? { |pref| pref.finish == solution[pref.index - 1] }
+      preferences.any? { |pref| pref.finish == solution[pref.number - 1] }
     end
 
     def <=>(other)

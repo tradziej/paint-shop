@@ -5,7 +5,7 @@ module SharedSolverTests
       PaintShop::Customer.parse('2 G 3 M 4 G'),
       PaintShop::Customer.parse('5 M')
     ]
-    solver = @solver.new(colors_number: 5, customers: customers)
+    solver = @solver.new(paints_count: 5, customers: customers)
 
     assert_equal('G G G G M', solver.solve)
   end
@@ -15,7 +15,7 @@ module SharedSolverTests
       PaintShop::Customer.parse('1 M'),
       PaintShop::Customer.parse('1 G')
     ]
-    solver = @solver.new(colors_number: 1, customers: customers)
+    solver = @solver.new(paints_count: 1, customers: customers)
 
     assert_equal('No solution exists', solver.solve)
   end
@@ -37,7 +37,7 @@ module SharedSolverTests
       PaintShop::Customer.parse('4 M'),
       PaintShop::Customer.parse('5 G 4 M')
     ]
-    solver = @solver.new(colors_number: 5, customers: customers)
+    solver = @solver.new(paints_count: 5, customers: customers)
 
     assert_equal('G M G M G', solver.solve)
   end
@@ -47,14 +47,14 @@ module SharedSolverTests
       PaintShop::Customer.parse('1 G 2 M'),
       PaintShop::Customer.parse('1 M')
     ]
-    solver = @solver.new(colors_number: 2, customers: customers)
+    solver = @solver.new(paints_count: 2, customers: customers)
 
     assert_equal('M M', solver.solve)
   end
 
   def test_solve_for_single_customer
     [PaintShop::Customer.parse('1 M'), PaintShop::Customer.parse('1 G')].each do |customer|
-      solver = @solver.new(colors_number: 1, customers: [customer])
+      solver = @solver.new(paints_count: 1, customers: [customer])
 
       assert_equal(customer.preferences.first.finish.to_s, solver.solve)
     end
