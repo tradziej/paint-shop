@@ -11,6 +11,21 @@ Clone this repository and run:
 ./bin/paint-shop
 ```
 
+Program ships with a command line single executable called `paint-shop`. You could download it from here:
+```
+wget -O /usr/local/bin/paint-shop https://github.com/tradziej/paint-shop/releases/download/0.0.1/paint-shop-x86_64-linux
+```
+or here:
+```
+wget -O /usr/local/bin/paint-shop https://github.com/tradziej/paint-shop/releases/download/0.0.1/paint-shop-x86_64-apple-darwin
+```
+depending on your platform.
+
+Give it permissions to execute:
+```
+chmod +x /usr/local/bin/paint-shop
+```
+
 ![](doc/usage.gif)
 
 ### Testing
