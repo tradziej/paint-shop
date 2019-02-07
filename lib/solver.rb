@@ -18,8 +18,8 @@ module PaintShop
 
    private
     def solution_string(solution)
-      return 'No solution exists' unless solution
-      solution.map(&:to_s).join(' ')
+      return nil unless solution
+      solution.join(' ')
     end
   end
 end

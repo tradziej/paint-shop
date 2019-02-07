@@ -17,7 +17,7 @@ module SharedSolverTests
     ]
     solver = @solver.new(paints_count: 1, customers: customers)
 
-    assert_equal('No solution exists', solver.solve)
+    assert_nil(solver.solve)
   end
 
   def test_solve_richer_example

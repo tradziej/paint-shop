@@ -4,20 +4,21 @@ require_relative 'backtracking_solver'
 module PaintShop
   class CLI
     def self.start(argv=ARGV)
-      prompt_message = Proc.new do
-        puts 'Enter \'q\' to exit'
-        puts 'Enter your data:'
+      if argv.length != 1
+        puts 'Usage: ./bin/paint-shop <input_file>'
+        exit(1)
       end
-      prompt_message.call
-      data = ""
-      while (input = gets.chomp) != 'q' do
-        data << "#{input}\n"
-        if input.empty?
-          parsed = PaintShop::Parser.parse(data, 'stream')
-          solution = PaintShop::BacktrackingSolver.new(parsed).solve
-          puts "Your solution is: #{solution}"
-          data = ""
-          prompt_message.call
+
+      if File.exist?(argv[0])
+        input = argv[0]
+        data = File.read(input)
+        parsed = PaintShop::Parser.parse(data, 'stream')
+        solution = PaintShop::BacktrackingSolver.new(parsed).solve
+        if solution
+          puts solution
+        else
+          puts 'No solution exists'
+          exit(1)
         end
       end
     end
